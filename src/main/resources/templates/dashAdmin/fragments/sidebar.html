@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- partial:partials/_sidebar.html -->
+<nav th:fragment="sidebar" class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <li class="nav-item">
+            <div class="d-flex sidebar-profile">
+                <div class="sidebar-profile-image">
+                    <img th:src="*{'data:image/jpeg;base64,'+ session.user.image}" class="img-fluid">
+                    <span class="sidebar-status-indicator"></span>
+                </div>
+                <div class="sidebar-profile-name">
+                    <p class="sidebar-name" th:text="${session.user.fullName}"></p>
+                    <p class="sidebar-designation" th:text="${session.user.typeStatus}">
+                    </p>
+                </div>
+            </div>
+            <div class="nav-search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Type to search..." aria-label="search"
+                           aria-describedby="search">
+                    <div class="input-group-append">
+                  <span class="input-group-text" id="search">
+                    <i class="typcn typcn-zoom"></i>
+                  </span>
+                    </div>
+                </div>
+            </div>
+            <p class="sidebar-menu-title">Dash menu</p>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="index.html">
+                <i class="typcn typcn-device-desktop menu-icon"></i>
+                <span class="menu-title">Dashboard <span class="badge badge-primary ml-3">New</span></span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <i class="typcn typcn-th-small-outline menu-icon"></i>
+                <span class="menu-title">Administrations</span>
+                <i class="typcn typcn-chevron-right menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/user/manageUsers}">Manage
+                        Users</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/manageManufacturers}">Manage
+                        Manufacturer</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/earPhone/manageEarPhones}">Manage
+                        EarPhone</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/manageOrders}">Manage
+                        Order</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#formElements" aria-expanded="false" aria-controls="formElements">
+                <i class="typcn typcn-film menu-icon"></i>
+                <span class="menu-title">Form elements</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="formElements">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/user/formUser}">Form User</a></li>
+                </ul>
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/earPhone/formEarPhone}">Form EarPhone</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+                <i class="typcn typcn-chart-pie-outline menu-icon"></i>
+                <span class="menu-title">Charts</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/charts}">ChartJs</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
+                <i class="typcn typcn-globe-outline menu-icon"></i>
+                <span class="menu-title">Error pages</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="error">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="pages/samples/error-404.html"> 404 </a></li>
+                    <li class="nav-item"><a class="nav-link" href="pages/samples/error-500.html"> 500 </a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/earPhone/homePage}">
+                <i class="typcn typcn-document-text menu-icon"></i>
+                <span class="menu-title">Home Page</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<!-- partial -->
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashAdmin/layouts/indexAdmin}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content" class="content-wrapper">
+    <form th:action="${BASEURL}">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Manage Users</h4>
+                    <div class="mt-5 mb-3 row">
+                        <div class="input-group col-4">
+                            <input type="text" class="form-control" name="search" placeholder="search...">
+                            <div class="input-group-append">
+                                <button th:formaction="${BASEURL + SEARCH}" class="btn btn-sm btn-primary">Search
+                                </button>
+                            </div>
+                        </div>
+                        <div class="input-group col-4">
+                            <select name="orderStates" class="form-control" id="exampleSelectGender">
+                                <option
+                                        th:each="item: ${listOrderStates}"
+                                        th:text="${item.nameStates}" th:value="${item.id}"
+                                >
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-4 d-flex justify-content-end">
+                            <button th:formaction="${BASEURL + UPDATE}" class="btn btn-success btn-fw mr-4">Update
+                            </button>
+                            <button th:formaction="${DELETE_ALL}" class="btn btn-danger btn-fw">Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-check form-check-primary d-flex justify-content-center">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" id="select-all">
+                                        </label>
+                                    </div>
+                                </th>
+                                <th>Id</th>
+                                <th>Full Name</th>
+                                <th>Phone</th>
+                                <th>Created</th>
+                                <th>Address</th>
+                                <th>Total</th>
+                                <th>Order States</th>
+                                <th colspan="2">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item: ${ListOrders}">
+                                <div class="product-cart d-flex">
+                                    <div class="one-forth">
+                                        <div class="display-tc">
+                                            <h3 th:text="${item.usersByUserId.fullName}"></h3>
+                                        </div>
+                                    </div>
+                                    <div class="one-eight text-center">
+                                        <div class="display-tc">
+                                            <span class="price" th:text="${item.usersByUserId.phone}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="one-eight text-center">
+                                        <div class="display-tc">
+                                            <span class="price" th:text="${item.created}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="one-eight text-center">
+                                        <div class="display-tc">
+                                            <span class="price" th:text="${item.usersByUserId.address}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="one-eight text-center">
+                                        <div class="display-tc">
+                                                                <span class="price"
+                                                                      th:text="${item.oderStatesByOderStatesId.nameStates}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="one-eight text-center">
+                                        <div class="display-tc">
+                                            $ <span
+                                                th:text="${#numbers.formatDecimal(item.totalPrice, 0, 'DEFAULT', 2, 'DEFAULT')}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="one-eight text-center">
+                                        <div class="display-tc">
+                                            <a href="#" type="button" class="text-danger" data-toggle="modal"
+                                               th:attr="data-target='#exampleModal'+${item.id}">show
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <td>
+                                    <div class="form-check form-check-primary d-flex justify-content-center">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="checkedID"
+                                                   th:value="${item.id}">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td th:text="${item.id}"></td>
+                                <td th:text="${item.usersByUserId.fullName}"></td>
+                                <td th:text="${item.usersByUserId.phone}"></td>
+                                <td th:text="${item.created}"></td>
+                                <td th:text="${item.usersByUserId.address}"></td>
+                                <td th:text="${item.totalPrice}"></td>
+                                <td th:text="${item.oderStatesByOderStatesId.nameStates}"></td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-warning" data-toggle="modal"
+                                            th:attr="data-target='#exampleModal'+${item.id}">Show
+                                    </button>
+                                </td>
+                                <!-- Modal-->
+                                <div class="modal fade" th:attr="id='exampleModal'+${item.id}" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Order Details</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container">
+                                                    <table class="table table-striped text-center">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>EarPhone</th>
+                                                            <th>Name</th>
+                                                            <th>Color</th>
+                                                            <th>Frequency</th>
+                                                            <th>Impedance</th>
+                                                            <th>Price</th>
+                                                            <th>Quantity</th>
+                                                            <th>Type EarPhone</th>
+                                                            <th>Total</th>
+                                                            <th>Manufacturer</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr th:each="detail:${listOrderDetails}">
+                                                            <div th:if="${item.id == detail.ordersByOrdersId.id}">
+                                                                <td>
+                                                                    <img th:src="*{'data:image/jpeg;base64,'+ detail.earPhoneByEarPhoneId.image}"
+                                                                         class="img-fluid avt">
+                                                                </td>
+                                                                <td th:text="${detail.earPhoneByEarPhoneId.name}"></td>
+                                                                <td th:text="${detail.earPhoneByEarPhoneId.color}"></td>
+                                                                <td th:text="${detail.earPhoneByEarPhoneId.frequency}"></td>
+                                                                <td th:text="${detail.earPhoneByEarPhoneId.impedance}"></td>
+                                                                <td th:text="${detail.earPhoneByEarPhoneId.price}"></td>
+                                                                <td th:text="${detail.quantity}"></td>
+                                                                <td th:text="${detail.earPhoneByEarPhoneId.typeEarPhone}"></td>
+                                                                <td th:text="${detail.quantity * detail.price}"></td>
+                                                                <td>
+                                                                    <img th:src="*{'data:image/jpeg;base64,'+ detail.earPhoneByEarPhoneId.manufacturerByManufacturerId.image}"
+                                                                         class="img-fluid">
+                                                                </td>
+                                                            </div>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="m-2">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>10</option>
+                        <option value="1">20</option>
+                        <option value="2">30</option>
+                        <option value="3">40</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <nav class="navigation example">
+                <ul class="pagination justify-content-center" th:if="${page.getTotalPages() > 0}">
+                    <li class="page-item ">
+                        <a class="page-link "
+                           th:if="${currentPage > page.getTotalPages()}"
+                           th:href="@{ ${BASEURL + PAGE} + ${currentPage - 1}}"
+                        >Previous
+                        </a>
+                    <li class="page-item ">
+                        <a th:href="@{ ${BASEURL + PAGE} + ${currentPage - 1}}"
+                           th:unless="${currentPage < page.getTotalPages()}" class="page-link">Previous</a>
+                    </li>
+                    <ul th:each="i: ${#numbers.sequence(1, page.getTotalPages())}">
+                        <li class="page-item ">
+                            <a class="page-link" th:if="${currentPage != i}"
+                               th:href="@{ ${BASEURL + PAGE} + ${i}}" th:text="${i}"></a>
+                        </li>
+                        <li class="page-item active" th:unless="${currentPage != i}"><a class="page-link">[[${i}]]</a>
+                        </li>
+                    </ul>
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:if="${currentPage < page.getTotalPages()}"
+                           th:href="@{ ${BASEURL + PAGE} + ${currentPage + 1}}"
+                        >Next</a>
+                        <!--                        <span th:unless="${currentPage < page.getTotalPages()}" class="page-link">Next</span>-->
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

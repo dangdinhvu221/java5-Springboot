@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashAdmin/layouts/indexAdmin}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content" class="content-wrapper">
+    <form th:action="${BASEURL}">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Manage EarPhones</h4>
+                    <div class="mt-5 mb-3 row">
+                        <div class="input-group col-5">
+                            <input type="text" class="form-control" name="search" placeholder="search...">
+                            <div class="input-group-append">
+                                <button th:formaction="${BASEURL + SEARCH}" class="btn btn-sm btn-primary">Search
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <button th:formaction="${BASEURL + ADD}" class="btn btn-success btn-fw mr-4">Add
+                            </button>
+                            <button th:formaction="${DELETE_ALL}" class="btn btn-danger btn-fw">Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <div class="form-check form-check-primary d-flex justify-content-center">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" id="select-all">
+                                        </label>
+                                    </div>
+                                </th>
+                                <th>EarPhone</th>
+                                <th>Name</th>
+                                <th>Manufacturer</th>
+                                <th>Color</th>
+                                <th>Impedance</th>
+                                <th>Frequency</th>
+                                <th>Type EarPhone</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Created</th>
+                                <th colspan="2">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item: ${ListEarPhone}">
+                                <td>
+                                    <div class="form-check form-check-primary d-flex justify-content-center">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="checkedID"
+                                                   th:value="${item.id}">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <img th:src="*{'data:image/jpeg;base64,'+ item.image}" class="img-fluid">
+                                </td>
+                                <td th:text="${item.name}"></td>
+                                <td th:text="${item.manufacturerByManufacturerId.nameManufacturer}"></td>
+                                <td th:text="${item.color}"></td>
+                                <td th:text="${item.impedance}"></td>
+                                <td th:text="${item.frequency}+'Hz - '+${item.frequency}+'KHz'"></td>
+                                <td th:text="${item.typeEarPhone}"></td>
+                                <td th:text="${item.quantity}"></td>
+                                <td th:text="${item.price}"></td>
+                                <td th:text="${#dates.format(item.created, 'dd-MMM-yyyy')}"></td>
+                                <td>
+                                    <button th:formaction="${BASEURL+BLOCK + item.id}"
+                                            class="btn btn-outline-danger">Block
+                                    </button>
+                                </td>
+                                <td>
+                                    <button th:formaction="${BASEURL+EDIT + item.id}"
+                                            class="btn btn-outline-success">Edit
+                                    </button>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="m-2">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>10</option>
+                        <option value="1">20</option>
+                        <option value="2">30</option>
+                        <option value="3">40</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <nav class="navigation example">
+                <ul class="pagination justify-content-center" th:if="${page.getTotalPages() > 0}">
+                    <li class="page-item ">
+                        <a class="page-link "
+                           th:if="${currentPage > page.getTotalPages()}"
+                           th:href="@{ ${BASEURL + PAGE} + ${currentPage - 1}}"
+                        >Previous
+                        </a>
+                    <li class="page-item disabled">
+                        <a th:href="@{ ${BASEURL + PAGE} + ${currentPage - 1}}"
+                           th:unless="${currentPage < page.getTotalPages()}" class="page-link">Previous</a>
+                    </li>
+                    <ul th:each="i: ${#numbers.sequence(1, page.getTotalPages())}">
+                        <li class="page-item ">
+                            <a class="page-link" th:if="${currentPage != i}"
+                               th:href="@{ ${BASEURL + PAGE} + ${i}}" th:text="${i}"></a>
+                        </li>
+                        <li class="page-item active" th:unless="${currentPage != i}"><a class="page-link">[[${i}]]</a>
+                        </li>
+                    </ul>
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:if="${currentPage < page.getTotalPages()}"
+                           th:href="@{ ${BASEURL + PAGE} + ${currentPage + 1}}"
+                        >Next</a>
+<!--                        <span th:unless="${currentPage < page.getTotalPages()}" class="page-link">Next</span>-->
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

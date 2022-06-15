@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{homePage/layouts/indexHomePage}"
+>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<article layout:fragment="content" id="page">
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="bread"><span><a href="index.html">Home</a></span> / <span>Checkout</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="colorlib-product">
+        <div class="container">
+            <form action="/earPhone/pay" method="post">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="cart-detail">
+                                    <h2>Cart Total</h2>
+                                    <ul>
+                                        <li>
+                                            <span>Subtotal</span> <span th:text="'$ ' + ${totalPrice}"></span>
+                                            <ul th:each="item: ${cartDetails}">
+                                                <li><span th:text="${item.quantity}+' x '+${item.name}"></span> <span th:text="'$ ' + ${item.quantity * item.price}"></span></li>
+                                            </ul>
+                                        </li>
+                                        <li><span>Shipping</span> <span>$0.00</span></li>
+                                        <li><span>VAT:</span> <span th:text="'$ '+${0.1 * totalPrice}"></span></li>
+                                        <li><span>Order Total</span>$ <span th:text="${#numbers.formatDecimal((1.1 * totalPrice), 0, 'COMMA', 0, 'POINT')}"></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="w-100"></div>
+
+                            <div class="col-md-12">
+                                <div class="cart-detail">
+                                    <h2>Payment Method</h2>
+                                    <label>Accepted Cards</label>
+                                    <div class="icon-container">
+                                        <i class="fa fa-cc-visa" style="color:navy;"></i>
+                                        <i class="fa fa-cc-amex" style="color:blue;"></i>
+                                        <i class="fa fa-cc-mastercard" style="color:red;"></i>
+                                        <i class="fa fa-cc-discover" style="color:orange;"></i>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="radio">
+                                                <label><input type="radio" name="optradio" value="payment"  > Payment on delivery</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="radio">
+                                                <label><input type="radio" name="optradio" value="paypal" > Paypal</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="checkbox">
+                                                <label><input type="checkbox" value=""> I have read and accept the terms
+                                                    and
+                                                    conditions</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-12 text-center">
+                                <p><a th:href="@{/earPhone/buy}" type="submit" class="btn btn-primary box payment">Continue Orders</a></p>
+                            </div>
+                        </div>
+                        <div class="row" >
+                            <div class="col-md-12 text-center">
+                                <p><button class="btn btn-primary box paypal">Continue Payment</button></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</article>
+</body>
+</html>
+

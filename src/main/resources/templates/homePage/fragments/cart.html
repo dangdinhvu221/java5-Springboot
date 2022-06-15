@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{homePage/layouts/indexHomePage}"
+>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<article layout:fragment="content" id="page">
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="bread"><span><a href="index.html">Home</a></span> / <span>Shopping Cart</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="colorlib-product">
+        <div class="container">
+            <div class="row row-pb-lg">
+                <div class="col-md-10 offset-md-1">
+                    <div class="process-wrap">
+                        <div class="process text-center active">
+                            <p><span>01</span></p>
+                            <h3>Shopping Cart</h3>
+                        </div>
+                        <div class="process text-center">
+                            <p><span>02</span></p>
+                            <h3>Checkout</h3>
+                        </div>
+                        <div class="process text-center">
+                            <p><span>03</span></p>
+                            <h3>Order Complete</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-pb-lg">
+                <div class="col-md-12">
+                    <div class="product-name d-flex">
+                        <div class="one-forth text-left px-4">
+                            <span>Product Details</span>
+                        </div>
+                        <div class="one-eight text-center">
+                            <span>Price</span>
+                        </div>
+                        <div class="one-forth  text-center">
+                            <span>Quantity</span>
+                        </div>
+                        <div class="one-eight text-center">
+                            <span>Total</span>
+                        </div>
+                        <div class="one-eight text-center px-4">
+                            <span>Remove</span>
+                        </div>
+                    </div>
+                    <div class="product-cart d-flex" th:each="item: ${cartDetails}">
+                        <div class="one-forth">
+                            <div class="product-img">
+                                <img th:src="*{'data:image/jpeg;base64,'+ item.image}" class="img-fluid">
+                            </div>
+                            <div class="display-tc">
+                                <h3 th:text="${item.name}"></h3>
+                            </div>
+                        </div>
+                        <div class="one-eight text-center">
+                            <div class="display-tc">
+                                <span class="price" th:text="${item.price}+' $'"></span>
+                            </div>
+                        </div>
+                        <div class="one-forth text-center">
+                            <div class="display-tc pl-5 pr-4">
+                                <div class="input-group pl-5 pr-5">
+                                    <span class="input-group-btn ">
+                                        <a th:href="@{'/earPhone/minus/'+${item.id}}" type="button"
+                                           class="btn btn-secondary" data-type="minus"
+                                           data-field="">
+                                            <i class="icon-minus2"></i>
+                                        </a>
+                                    </span>
+                                    <input disabled type="text" id="quantity" th:value="${item.quantity}"
+                                           name="quantity"
+                                           class="form-control disabled text-center">
+                                    <span class="input-group-btn ml-1">
+                        	                <a th:href="@{'/earPhone/plus/'+${item.id}}" class="btn btn-secondary"
+                                               data-type="plus"
+                                               data-field="">
+                                            <i class="icon-plus2"></i>
+                                            </a>
+                     	            </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="one-eight text-center">
+                            <div class="display-tc">
+                                <span class="price" th:text="${item.quantity * item.price}+' $'"></span>
+                            </div>
+                        </div>
+                        <div class="one-eight text-center">
+                            <div class="display-tc">
+                                <a th:href="@{'/earPhone/removeCart/'+${item.id}}" class="closed"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-pb-lg">
+                <div class="col-md-12">
+                    <div class="total-wrap">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <form th:action="@{/earPhone/checkout}">
+                                    <div class="row form-group">
+                                        <div class="col-sm-3">
+                                            <input type="submit" value="Checkout" class="btn btn-primary">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-sm-4 text-center">
+                                <div class="total">
+                                    <div class="sub">
+                                        <p><span>Subtotal:</span> <span th:text="'$ '+${totalPrice}"></span></p>
+                                        <p><span>VAT:</span> <span th:text="'$ '+${0.1 * totalPrice}"></span></p>
+                                        <p><span>Delivery:</span> <span>Free ship</span></p>
+                                    </div>
+                                    <div class="grand-total">
+                                        <p><span><strong>Total:</strong></span>
+                                            <span th:text="'$ '+${#numbers.formatDecimal((1.1 * totalPrice), 0, 'COMMA', 0, 'POINT')}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-8 offset-sm-2 text-center colorlib-heading colorlib-heading-sm">
+                    <h2>Related Products</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-lg-3 mb-4 text-center">
+                    <div class="product-entry border">
+                        <a href="#" class="prod-img">
+                            <img src="images/item-1.jpg" class="img-fluid" alt="Free html5 bootstrap 4 template">
+                        </a>
+                        <div class="desc">
+                            <h2><a href="#">Women's Boots Shoes Maca</a></h2>
+                            <span class="price">$139.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3 mb-4 text-center">
+                    <div class="product-entry border">
+                        <a href="#" class="prod-img">
+                            <img src="images/item-2.jpg" class="img-fluid" alt="Free html5 bootstrap 4 template">
+                        </a>
+                        <div class="desc">
+                            <h2><a href="#">Women's Minam Meaghan</a></h2>
+                            <span class="price">$139.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3 mb-4 text-center">
+                    <div class="product-entry border">
+                        <a href="#" class="prod-img">
+                            <img src="images/item-3.jpg" class="img-fluid" alt="Free html5 bootstrap 4 template">
+                        </a>
+                        <div class="desc">
+                            <h2><a href="#">Men's Taja Commissioner</a></h2>
+                            <span class="price">$139.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-lg-3 mb-4 text-center">
+                    <div class="product-entry border">
+                        <a href="#" class="prod-img">
+                            <img src="images/item-4.jpg" class="img-fluid" alt="Free html5 bootstrap 4 template">
+                        </a>
+                        <div class="desc">
+                            <h2><a href="#">Russ Men's Sneakers</a></h2>
+                            <span class="price">$139.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+</body>
+</html>
+

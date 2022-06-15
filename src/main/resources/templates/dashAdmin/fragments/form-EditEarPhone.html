@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashAdmin/layouts/indexAdmin}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content" class="card-body container bg-white">
+    <h2 class="card-title bg-info text-white text-center p-3">Update EarPhone</h2>
+
+    <form th:action="${BASEURL + UPDATE}" class="row" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:value="${earPhone.id}" name="idEarPhone">
+
+        <div class="form-group col-6">
+            <label for="exampleInputName1">Name:</label>
+            <input name="name" th:value="${earPhone.name}" type="text" class="form-control" id="exampleInputName1"
+                   placeholder="Name">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputEmail3">Title:</label>
+            <input name="title" th:value="${earPhone.title}" type="text" class="form-control" id="exampleInputEmail3"
+                   placeholder="Title">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputPassword7">Warranty:</label>
+            <input name="warranty" th:value="${earPhone.warranty}" type="text" class="form-control"
+                   id="exampleInputPassword7"
+                   placeholder="Warranty">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputPassword5">Frequency:</label>
+            <input name="frequency" th:value="${earPhone.frequency}" type="text" class="form-control"
+                   id="exampleInputPassword5"
+                   placeholder="Frequency">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputPassword8">Color:</label>
+            <input name="color" th:value="${earPhone.color}" type="text" class="form-control" id="exampleInputPassword8"
+                   placeholder="Color">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputPassword9">Price:</label>
+            <input name="price" th:value="${earPhone.price}" type="text" class="form-control" id="exampleInputPassword9"
+                   placeholder="Price">
+        </div>
+        <div class="form-group col-12">
+            <label for="exampleSelectGender">Manufacturers:</label>
+            <select name="manufacturers" class="form-control" id="exampleSelectGender">
+                <option
+                        th:each="item: ${listManufacturer}"
+                        th:text="${item.nameManufacturer}" th:value="${item.id}"
+                >
+                </option>
+            </select>
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleSelectGender">TypeEarPhone:</label>
+            <select name="typeEarPhone" class="form-control" id="exampleSelectGender">
+                <option th:value="${'BLUETOOTH'}"
+                        th:checked="${earPhone.TypeEarPhone.toString().compareTo('WIRED_HEADPHONE')}"
+                >
+                    BLUETOOTH
+                </option>
+                <option th:value="${'WIRED_HEADPHONE'}"
+                        th:checked="${earPhone.TypeEarPhone.toString().compareTo('BLUETOOTH')}"
+                >
+                    WIRED_HEADPHONE
+                </option>
+            </select>
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleSelectRole">TypeCondition:</label>
+            <select name="typeCondition" class="form-control" id="exampleSelectRole">
+                <option th:value="${'NEW'}"
+                        th:checked="${earPhone.TypeCondition.toString().compareTo('USED')}"
+                >
+                    NEW
+                </option>
+                <option th:value="${'USED'}"
+                        th:checked="${earPhone.TypeCondition.toString().compareTo('NEW')}"
+                >
+                    USED
+                </option>
+            </select>
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputPassword4">Impedance:</label>
+            <input name="impedance" th:value="${earPhone.impedance}" type="text" class="form-control"
+                   id="exampleInputPassword4"
+                   placeholder="Impedance">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputPassword9">Quantity:</label>
+            <input name="quantity" th:value="${earPhone.quantity}" type="text" class="form-control"
+                   id="exampleInputPassword9"
+                   placeholder="Quantity">
+        </div>
+        <div class="form-group col-12">
+            <label>File upload:</label>
+            <div class="input-group">
+                <div class="custom-file">
+                    <input name="image" type="file" class="custom-file-input" id="inputGroupFile01"
+                           aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12">
+            <label for="exampleTextarea1">Description</label>
+            <textarea name="description" th:value="${earPhone.description}" class="form-control" id="exampleTextarea1"
+                      rows="6" spellcheck="false"></textarea>
+        </div>
+        <button class="btn btn-primary mr-2">Update</button>
+        <button type="reset" class="btn btn-light">Reset</button>
+    </form>
+</div>
+</body>
+</html>

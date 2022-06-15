@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashAdmin/layouts/indexAdmin}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content" class="content-wrapper">
+    <!-- Modal Created -->
+    <div class="modal fade" id="exampleModal" tabindex="-1"
+         aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Created
+                        Manufacturer</h5>
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="post" enctype="multipart/form-data" th:action="${BASEURL + CREATE}">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="exampleInputName1">Name Manufacturer: </label>
+                            <input type="text" class="form-control" name="manufacturer"
+                                   id="manufacturer" placeholder="Name manufacturer...">
+                        </div>
+                        <div class="form-group">
+                            <label>File upload:</label>
+                            <div class="input-group mb-3">
+                                <div class="custom-file">
+                                    <input name="image" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Close
+                        </button>
+                        <button class="btn btn-success">Success
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <form th:action="${BASEURL}">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Manufacturers</h2>
+                    <div class="mt-5 mb-3 row">
+                        <div class="input-group col-5">
+                            <input type="text" class="form-control" name="search" placeholder="search...">
+                            <div class="input-group-append">
+                                <button th:formaction="${BASEURL + SEARCH}" class="btn btn-sm btn-primary">Search
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <button type="button" class="btn btn-success btn-fw mr-4" data-toggle="modal"
+                                    data-target="#exampleModal">Add
+                            </button>
+                            <button th:formaction="${DELETE_ALL}" class="btn btn-danger btn-fw">Delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped text-center">
+                            <thead class="table-info">
+                            <tr>
+                                <th>
+                                    <div class="form-check form-check-primary d-flex justify-content-center">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" id="select-all">
+                                        </label>
+                                    </div>
+                                </th>
+                                <th>Id</th>
+                                <th>Name manufacturer</th>
+                                <th>Image</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item:${ListManufacturer}">
+                                <td>
+                                    <div class="form-check form-check-primary d-flex justify-content-center">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" class="form-check-input" name="checkedID"
+                                                   th:value="${item.id}">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td th:text="${item.id}"></td>
+                                <td th:text="${item.nameManufacturer}"></td>
+                                <td>
+                                    <img th:src="*{'data:image/jpeg;base64,'+ item.image}" class="img-fluid logos">
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-outline-success" data-toggle="modal"
+                                            th:attr="data-target='#modalEdit'+${item.id}">Edit
+                                    </button>
+                                </td>
+
+                                <div>
+                                    <!-- Modal Update -->
+                                    <div class="modal fade" th:attr="id='modalEdit'+${item.id}" tabindex="-1"
+                                         aria-labelledby="modalEdit"
+                                         aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form th:action="${BASEURL+UPDATE}" method="post">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalEdit">Update
+                                                            Manufacturer</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <form action="" method="post">
+                                                        <input type="hidden" th:value="${item.id}"
+                                                               name="manufacturerId">
+                                                        <div class="modal-body">
+                                                            <div class="form-group">
+                                                                <label for="exampleInputName1">Name
+                                                                    Manufacturer: </label>
+                                                                <input type="text" class="form-control"
+                                                                       name="manufacturer"
+                                                                       id="exampleInputName1"
+                                                                       th:value="${item.nameManufacturer}"
+                                                                       placeholder="Name manufacturer...">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close
+                                                            </button>
+                                                            <button class="btn btn-success">Update</button>
+                                                        </div>
+                                                    </form>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="m-2">
+                    <select class="form-select" aria-label="Default select example" name="pageSize">
+                        <option th:value="${5}" selected>5</option>
+                        <option th:value="${10}">10</option>
+                        <option th:value="${20}">20</option>
+                        <option th:value="${30}">30</option>
+                        <option th:value="${40}">40</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <nav class="navigation example">
+                <ul class="pagination justify-content-center" th:if="${page.getTotalPages() > 0}">
+                    <li class="page-item ">
+                        <a class="page-link "
+                           th:if="${currentPage > page.getTotalPages()}"
+                           th:href="@{ ${BASEURL + PAGE} + ${currentPage - 1}}"
+                        >Previous
+                        </a>
+                    <li class="page-item ">
+                        <a th:href="@{ ${BASEURL + PAGE} + ${currentPage - 1}}"
+                           th:unless="${currentPage < page.getTotalPages()}" class="page-link">Previous</a>
+                    </li>
+                    <ul th:each="i: ${#numbers.sequence(1, page.getTotalPages())}">
+                        <li class="page-item ">
+                            <a class="page-link" th:if="${currentPage != i}"
+                               th:href="@{ ${BASEURL + PAGE} + ${i}}" th:text="${i}"></a>
+                        </li>
+                        <li class="page-item active" th:unless="${currentPage != i}"><a class="page-link">[[${i}]]</a>
+                        </li>
+                    </ul>
+                    <li class="page-item">
+                        <a class="page-link"
+                           th:if="${currentPage < page.getTotalPages()}"
+                           th:href="@{ ${BASEURL + PAGE} + ${currentPage + 1}}"
+                        >Next</a>
+<!--                        <span th:unless="${currentPage < page.getTotalPages()}" class="page-link">Next</span>-->
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </form>
+
+</div>
+
+</body>
+</html>

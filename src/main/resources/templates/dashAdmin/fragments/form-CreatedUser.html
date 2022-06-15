@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashAdmin/layouts/indexAdmin}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div layout:fragment="content" class="card-body container bg-white">
+    <h2 class="card-title bg-info text-white text-center p-3">Create User</h2>
+
+    <form th:action="${BASEURL + CREATE}" class="row"  method="post" enctype="multipart/form-data">
+        <div class="form-group col-6">
+            <label for="exampleInputName1">Fullname:</label>
+            <input name="fullName" type="text" class="form-control" id="exampleInputName1" placeholder="Name">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputEmail6">Birth Day:</label>
+            <input name="birth" type="date" class="form-control" id="exampleInputEmail6" placeholder="BirthDay">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputEmail3">Email address:</label>
+            <input name="email" type="email" class="form-control" id="exampleInputEmail3" placeholder="Email">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputPassword7">PhoneNumber:</label>
+            <input name="phone" type="text" class="form-control" id="exampleInputPassword7"
+                   placeholder="Username">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputPassword5">Username:</label>
+            <input name="username" type="text" class="form-control" id="exampleInputPassword5"
+                   placeholder="Username">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleInputPassword4">Password:</label>
+            <input name="password" type="password" class="form-control" id="exampleInputPassword4"
+                   placeholder="Password">
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleSelectGender">Gender:</label>
+            <select name="gender" class="form-control" id="exampleSelectGender">
+                <option th:value="${'MALE'}">Male</option>
+                <option th:value="${'FEMALE'}">Female</option>
+            </select>
+        </div>
+        <div class="form-group col-6">
+            <label for="exampleSelectRole">Role:</label>
+            <select name="role" class="form-control" id="exampleSelectRole">
+                <option th:value="${'ADMIN'}">Admin</option>
+                <option th:value="${'USER'}">User</option>
+                <option th:value="${'CUSTOMER'}">Customer</option>
+            </select>
+        </div>
+        <div class="form-group col-12">
+            <label>File upload:</label>
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input name="image" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-12">
+            <label for="exampleInputCity1">Address</label>
+            <input name="address" type="text" class="form-control" id="exampleInputCity1" placeholder="Location">
+        </div>
+        <button class="btn btn-primary mr-2">Save</button>
+        <button type="reset" class="btn btn-light">Reset</button>
+    </form>
+</div>
+</body>
+</html>
