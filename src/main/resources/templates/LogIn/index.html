@@ -58,7 +58,7 @@
                                 </p>
                             </div>
                         </div>
-                        <form action="/earPhone/logIn" class="signin-form" method="post">
+                        <form th:action="@{/j_spring-security_check}" class="signin-form" method="post">
                               <span class="text-danger" role="alert" th:text="${error}"></span>
                             <div class="form-group mb-3">
                                 <label class="label" for="name">Username</label>

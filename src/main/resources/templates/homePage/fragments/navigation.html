@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -43,19 +45,18 @@
                         <li class="has-dropdown cart login">
                             <a href="#">
                                 <i class="icon-user"></i>
-                                <span th:if="${session.user} != null">
-                                    <a th:text="'Hello: '+${session.user.fullName}"></a>
-                                </span>
+                                <a th:text="'Hello: '+ ${#request.userPrincipal.name}"></a>
                             </a>
-                            <ul class="dropdown">
-                                <li th:if="${session.user} == null"><a th:href="@{/earPhone/logInForm}">LogIn</a></li>
-                                <li th:if="${session.user} != null"><a th:href="@{/earPhone/history}">History Orders</a>
-                                </li>
-                                <li th:if="${session.user} != null"><a th:href="@{/earPhone/profile}">Profile</a></li>
-                                <li th:if="${session.user} == null"><a th:href="@{/earPhone/signUp}">SignUp</a></li>
-                                <li th:if="${session.user} != null"><a th:href="@{/earPhone/dashAdmin/home}">Dashboard
-                                    Admin</a></li>
-                                <li th:if="${session.user} != null"><a th:href="@{/earPhone/logout}">Log out</a></li>
+                            <ul class="dropdown" th:unless="${#request.userPrincipal != null}">
+                                <li><a th:href="@{/earPhone/logInForm}">LogIn</a></li>
+                                <li><a th:href="@{/earPhone/signUp}">SignUp</a></li>
+                            </ul>
+                            <ul class="dropdown" th:if="${#request.userPrincipal != null}">
+                                <li><a th:href="@{/earPhone/history}">History Orders</a></li>
+                                <li><a th:href="@{/earPhone/profile}">Profile</a></li>
+                                <li sec:authorize="hasAuthority('ADMIN')" ><a th:href="@{/earPhone/dashAdmin/home}">
+                                    Dashboard Admin</a></li>
+                                <li><a th:href="@{/earPhone/logout}">Log out</a></li>
                             </ul>
                         </li>
                         <li class="cart"><a th:href="@{/earPhone/cart}">

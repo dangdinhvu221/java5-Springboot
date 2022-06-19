@@ -31,11 +31,11 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public Orders addOrder(Long userId, Date created, BigDecimal totalPrice, Long orderStatesId) {
+    public Orders addOrder(Users user, Date created, BigDecimal totalPrice, Long orderStatesId) {
         Orders orders = new Orders();
-        Users users = this.userRepository.findById(userId).get();
         OrderStates orderStates = this.orderStatesRepository.findById(orderStatesId).get();
-        orders.setUsersByUserId(users);
+        orders.setId(null);
+        orders.setUsersByUserId(user);
         orders.setCreated(new Date());
         orders.setTotalPrice(totalPrice);
         orders.setOderStatesByOderStatesId(orderStates);

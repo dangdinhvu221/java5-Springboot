@@ -11,12 +11,12 @@
         <li class="nav-item">
             <div class="d-flex sidebar-profile">
                 <div class="sidebar-profile-image">
-                    <img th:src="*{'data:image/jpeg;base64,'+ session.user.image}" class="img-fluid">
+<!--                    <img th:src="*{'data:image/jpeg;base64,'+ session.user.image}" class="img-fluid">-->
                     <span class="sidebar-status-indicator"></span>
                 </div>
                 <div class="sidebar-profile-name">
-                    <p class="sidebar-name" th:text="${session.user.fullName}"></p>
-                    <p class="sidebar-designation" th:text="${session.user.typeStatus}">
+<!--                    <p class="sidebar-name" th:text="${session.user.fullName}"></p>-->
+<!--                    <p class="sidebar-designation" th:text="${session.user.typeStatus}">-->
                     </p>
                 </div>
             </div>
@@ -47,11 +47,11 @@
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/user/manageUsers}">Manage
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/manageUsers}">Manage
                         Users</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/manageManufacturers}">Manage
                         Manufacturer</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/earPhone/manageEarPhones}">Manage
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/manageEarPhones}">Manage
                         EarPhone</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/manageOrders}">Manage
                         Order</a></li>
@@ -66,10 +66,10 @@
             </a>
             <div class="collapse" id="formElements">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/user/formUser}">Form User</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/formUser}">Form User</a></li>
                 </ul>
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/earPhone/formEarPhone}">Form EarPhone</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/earPhone/dashAdmin/formEarPhone}">Form EarPhone</a></li>
                 </ul>
             </div>
         </li>

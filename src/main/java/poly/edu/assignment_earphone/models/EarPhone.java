@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Nationalized;
+import poly.edu.assignment_earphone.models.typeEnum.TypeCondition;
+import poly.edu.assignment_earphone.models.typeEnum.TypeEarPhone;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

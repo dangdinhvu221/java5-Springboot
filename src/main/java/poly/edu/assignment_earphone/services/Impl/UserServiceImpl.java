@@ -7,9 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-import poly.edu.assignment_earphone.models.TypeGender;
-import poly.edu.assignment_earphone.models.TypeRole;
-import poly.edu.assignment_earphone.models.TypeStatus;
+import poly.edu.assignment_earphone.models.typeEnum.TypeGender;
+import poly.edu.assignment_earphone.models.typeEnum.TypeRole;
+import poly.edu.assignment_earphone.models.typeEnum.TypeStatus;
 import poly.edu.assignment_earphone.models.Users;
 import poly.edu.assignment_earphone.repositories.IUserRepository;
 import poly.edu.assignment_earphone.services.UserService;
@@ -74,6 +74,9 @@ public class UserServiceImpl implements UserService {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+        if(birthDay == null){
+            user.setBirthDay(this.userRepository.findById(id).get().getBirthDay());
         }
         user.setId(id);
         user.setUsername(username);

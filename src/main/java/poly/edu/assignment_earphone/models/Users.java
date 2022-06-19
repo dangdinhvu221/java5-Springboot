@@ -1,10 +1,12 @@
 package poly.edu.assignment_earphone.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import poly.edu.assignment_earphone.models.typeEnum.TypeGender;
+import poly.edu.assignment_earphone.models.typeEnum.TypeRole;
+import poly.edu.assignment_earphone.models.typeEnum.TypeStatus;
 
 import javax.persistence.*;
 import java.util.Date;

@@ -1,7 +1,8 @@
-package poly.edu.assignment_earphone.controllers;
+package poly.edu.assignment_earphone.controllers.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.util.Arrays;
 
 @Controller
 @RequestMapping("/earPhone/dashAdmin/manageManufacturers")
+@PreAuthorize("isAuthenticated() and hasAuthority('ADMIN')")
 public class ManufacturerController {
 
     @Autowired
@@ -34,12 +36,14 @@ public class ManufacturerController {
     }
 
     @PostMapping("/updateManufacturer")
-    public String updateManufacturer(@RequestParam("manufacturer") String name, @RequestParam("manufacturerId") Long id) {
+    public String updateManufacturer(@RequestParam("manufacturer") String name,
+                                     @RequestParam("image") MultipartFile image,
+                                     @RequestParam("manufacturerId") Long id) {
         Manufacturer manufacturer = new Manufacturer();
         manufacturer.setId(id);
         manufacturer.setNameManufacturer(name);
-        this.manufacturerService.updateManufacturer(manufacturer);
-        return "redirect:/earPhone/dashAdmin/manageManufacturers/manageManufacturers";
+        this.manufacturerService.updateManufacturer(manufacturer, image);
+        return "redirect:/earPhone/dashAdmin/manageManufacturers";
     }
 
     @GetMapping("/searchManufacturers")
@@ -58,7 +62,7 @@ public class ManufacturerController {
     public String deleteManufacturers(@RequestParam("checkedID") Long[] id) {
         System.out.println(Arrays.toString(id));
         manufacturerService.deleteAllManufacturer(id);
-        return "redirect:/earPhone/dashAdmin/manageManufacturers/manageManufacturers";
+        return "redirect:/earPhone/dashAdmin/manageManufacturers";
     }
 
     @GetMapping("/pageManufacturers/{pageNo}")

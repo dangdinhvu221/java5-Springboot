@@ -145,35 +145,19 @@
                                 </div>
                                 <div class="one-eight text-center">
                                     <div class="display-tc">
-                                        <a href="#" type="button" class="text-danger" data-toggle="modal"
-                                           th:attr="data-target='#exampleModal'+${item.id}">show
-                                        </a>
+                                        <div class="display-tc">
+                                            <a th:href="@{'/earPhone/received/' + ${item.id}}"
+                                               class=" btn btn-outline-warning">received
+                                            </a>
+                                            <a href="#" type="button" class="btn btn-outline-primary"
+                                               data-toggle="modal"
+                                               th:attr="data-target='#exampleModal'+${item.id}">show
+                                            </a>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row row-pb-lg">
-                <div class="col-md-12">
-                    <div class="total-wrap">
-                        <div class="row">
-                            <div class="col-sm-8">
-                            </div>
-                            <!--                            <div class="col-sm-4 text-center">-->
-                            <!--                                <div class="total">-->
-                            <!--                                    <div class="sub">-->
-                            <!--                                        <p><span>Subtotal:</span> <span th:text="'$ '+${totalPrice}"></span></p>-->
-                            <!--                                        <p><span>VAT:</span> <span th:text="'$ '+${0.1 * totalPrice}"></span></p>-->
-                            <!--                                        <p><span>Delivery:</span> <span>Free ship</span></p>-->
-                            <!--                                    </div>-->
-                            <!--                                    <div class="grand-total">-->
-                            <!--                                        <p><span><strong>Total:</strong></span> <span-->
-                            <!--                                                th:text="'$ '+${1.1 * totalPrice}"></span></p>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
                         </div>
                     </div>
                 </div>

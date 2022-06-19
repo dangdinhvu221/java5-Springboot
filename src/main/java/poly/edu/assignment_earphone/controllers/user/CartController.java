@@ -1,4 +1,4 @@
-package poly.edu.assignment_earphone.controllers;
+package poly.edu.assignment_earphone.controllers.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

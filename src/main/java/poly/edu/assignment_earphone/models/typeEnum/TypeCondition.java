@@ -1,4 +1,4 @@
-package poly.edu.assignment_earphone.models;
+package poly.edu.assignment_earphone.models.typeEnum;
 
 public enum TypeCondition {
     NEW(0), USED(1);

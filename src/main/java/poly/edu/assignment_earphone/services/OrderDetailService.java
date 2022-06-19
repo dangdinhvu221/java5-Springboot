@@ -3,6 +3,7 @@ package poly.edu.assignment_earphone.services;
 import org.springframework.data.domain.Page;
 import poly.edu.assignment_earphone.models.Manufacturer;
 import poly.edu.assignment_earphone.models.OrderDetails;
+import poly.edu.assignment_earphone.models.Orders;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +14,8 @@ public interface OrderDetailService {
     OrderDetails updateOrderDetails(OrderDetails orderDetails);
 
     List<OrderDetails> getAllOrderDetails();
+
+    List<OrderDetails> findByOrdersByOrdersId(Orders order);
 
     OrderDetails getOrderDetails(Long id);
 

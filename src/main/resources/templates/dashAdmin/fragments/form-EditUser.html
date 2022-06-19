@@ -58,7 +58,7 @@
             <label for="exampleSelectRole">Role:</label>
             <select name="role" class="form-control" id="exampleSelectRole">
                 <option th:value="${'ADMIN'}"
-                        th:checked="${user.TypeRole.toString().compareTo('CUSTOMER')}"
+                        th:checked="${user.TypeRole.toString().compareTo('USER')}"
                 >
                     Admin
                 </option>
@@ -66,11 +66,6 @@
                         th:checked="${user.TypeRole.toString().compareTo('ADMIN')}"
                 >
                     User
-                </option>
-                <option th:value="${'CUSTOMER'}"
-                        th:checked="${user.TypeRole.toString().compareTo('USER')}"
-                >
-                    Customer
                 </option>
             </select>
         </div>

@@ -1,13 +1,15 @@
-package poly.edu.assignment_earphone.controllers;
+package poly.edu.assignment_earphone.controllers.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import poly.edu.assignment_earphone.models.*;
+import poly.edu.assignment_earphone.models.typeEnum.TypeCondition;
+import poly.edu.assignment_earphone.models.typeEnum.TypeEarPhone;
 import poly.edu.assignment_earphone.services.EarPhoneService;
 import poly.edu.assignment_earphone.services.ManufacturerService;
 
@@ -15,7 +17,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Controller
-@RequestMapping("/earPhone/dashAdmin/earPhone")
+@RequestMapping("/earPhone/dashAdmin")
+@PreAuthorize("isAuthenticated() and hasAuthority('ADMIN')")
 public class EarPhoneController {
 
     @Autowired
@@ -26,7 +29,7 @@ public class EarPhoneController {
 
     @GetMapping("/formEarPhone")
     private String showFormEarPhone(ModelMap model) {
-        model.addAttribute("BASEURL", "/earPhone/dashAdmin/earPhone");
+        model.addAttribute("BASEURL", "/earPhone/dashAdmin");
         model.addAttribute("CREATE", "/addEarPhones");
         model.addAttribute("UPDATE", "/updateEarPhone");
         model.addAttribute("listManufacturer", this.manufacturerService.getAllManufacturer());
@@ -54,7 +57,7 @@ public class EarPhoneController {
                               @RequestParam("manufacturers") Manufacturer manufacturers
     ) {
         this.earPhoneService.saveEarPhoneToDb(name, title, warranty, frequency, color, price, impedance, image, description, new Date(), quantity, typeEarPhone, typeCondition, manufacturers);
-        return "redirect:/earPhone/dashAdmin/earPhone/formEarPhone";
+        return "redirect:/earPhone/dashAdmin/formEarPhone";
     }
 
     @GetMapping("/editEarPhone/{ids}")
@@ -64,7 +67,7 @@ public class EarPhoneController {
         EarPhone earPhone = this.earPhoneService.getEarPhone(ids);
         model.addAttribute("earPhone", earPhone);
         model.addAttribute("UPDATE", "/updateEarPhone");
-        model.addAttribute("BASEURL", "/earPhone/dashAdmin/earPhone");
+        model.addAttribute("BASEURL", "/earPhone/dashAdmin");
         model.addAttribute("listManufacturer", this.manufacturerService.getAllManufacturer());
         return "dashAdmin/fragments/form-EditEarPhone";
     }
@@ -90,8 +93,8 @@ public class EarPhoneController {
         EarPhone earPhone = this.earPhoneService.getEarPhone(id);
         this.earPhoneService.updateEarPhoneToDb(id, name, title, warranty, frequency, color, price, impedance, image, description, earPhone.getCreated(), quantity, typeEarPhone, typeCondition, manufacturers);
         model.addAttribute("UPDATE", "/updateEarPhone");
-        model.addAttribute("BASEURL", "/earPhone/dashAdmin/earPhone");
-        return "redirect:/earPhone/dashAdmin/earPhone/manageEarPhones";
+        model.addAttribute("BASEURL", "/earPhone/dashAdmin");
+        return "redirect:/earPhone/dashAdmin/manageEarPhones";
     }
 
     @GetMapping("/deleteEarPhone/{id}")
@@ -137,11 +140,11 @@ public class EarPhoneController {
 
     public void actions(ModelMap model) {
         model.addAttribute("ADD", "/formEarPhone");
-        model.addAttribute("BASEURL", "/earPhone/dashAdmin/earPhone");
+        model.addAttribute("BASEURL", "/earPhone/dashAdmin");
         model.addAttribute("BLOCK", "/deleteEarPhone/");
         model.addAttribute("SEARCH", "/searchEarPhone");
         model.addAttribute("EDIT", "/editEarPhone/");
-        model.addAttribute("DELETE_ALL", "/earPhone/dashAdmin/earPhone/deleteEarPhone");
+        model.addAttribute("DELETE_ALL", "/earPhone/dashAdmin/deleteEarPhone");
         model.addAttribute("PAGE", "/pageEarPhone/");
     }
 }

@@ -1,4 +1,4 @@
-package poly.edu.assignment_earphone.models;
+package poly.edu.assignment_earphone.models.typeEnum;
 
 public enum TypeEarPhone {
     BLUETOOTH(0), WIRED_HEADPHONE(1);

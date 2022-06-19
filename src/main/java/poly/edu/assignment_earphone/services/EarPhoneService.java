@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 import poly.edu.assignment_earphone.models.EarPhone;
 import poly.edu.assignment_earphone.models.Manufacturer;
-import poly.edu.assignment_earphone.models.TypeCondition;
-import poly.edu.assignment_earphone.models.TypeEarPhone;
+import poly.edu.assignment_earphone.models.typeEnum.TypeCondition;
+import poly.edu.assignment_earphone.models.typeEnum.TypeEarPhone;
 
 import java.math.BigDecimal;
 import java.util.Date;

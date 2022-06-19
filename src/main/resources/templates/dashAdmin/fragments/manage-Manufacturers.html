@@ -34,7 +34,8 @@
                             <label>File upload:</label>
                             <div class="input-group mb-3">
                                 <div class="custom-file">
-                                    <input name="image" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                                    <input name="image" type="file" class="custom-file-input" id="inputGroupFile01"
+                                           aria-describedby="inputGroupFileAddon01">
                                     <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                                 </div>
                             </div>
@@ -117,7 +118,7 @@
                                          aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
-                                                <form th:action="${BASEURL+UPDATE}" method="post">
+                                                <form th:action="${BASEURL+UPDATE}" method="post" enctype="multipart/form-data">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="modalEdit">Update
                                                             Manufacturer</h5>
@@ -138,6 +139,20 @@
                                                                        id="exampleInputName1"
                                                                        th:value="${item.nameManufacturer}"
                                                                        placeholder="Name manufacturer...">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>File upload:</label>
+                                                                <div class="input-group mb-3">
+                                                                    <div class="custom-file">
+                                                                        <input name="image" type="file"
+                                                                               class="custom-file-input"
+                                                                               id="inputGroupFile01"
+                                                                               aria-describedby="inputGroupFileAddon01">
+                                                                        <label class="custom-file-label"
+                                                                               for="inputGroupFile01">Choose
+                                                                            file</label>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -194,7 +209,7 @@
                            th:if="${currentPage < page.getTotalPages()}"
                            th:href="@{ ${BASEURL + PAGE} + ${currentPage + 1}}"
                         >Next</a>
-<!--                        <span th:unless="${currentPage < page.getTotalPages()}" class="page-link">Next</span>-->
+                        <!--                        <span th:unless="${currentPage < page.getTotalPages()}" class="page-link">Next</span>-->
                     </li>
                 </ul>
             </nav>

@@ -39,12 +39,21 @@ public class ManufacturerServiceImpl implements ManufacturerService {
     }
 
     @Override
-    public Manufacturer updateManufacturer(Manufacturer manufacturer) {
+    public Manufacturer updateManufacturer(Manufacturer manufacturer, MultipartFile file) {
         Long id = manufacturer.getId();
-        if(id != null){
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        if (id != null) {
+            if (fileName.isEmpty()) {
+                manufacturer.setImage(this.manufacturerRepository.findById(id).get().getImage());
+            }
+            try {
+                manufacturer.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Optional<Manufacturer> updatedManufacturer = this.manufacturerRepository.findById(id);
-            if(updatedManufacturer.isPresent()){
-//                manufacturer.setId(id);
+            if (updatedManufacturer.isPresent()) {
+                manufacturer.setId(id);
                 return this.manufacturerRepository.save(manufacturer);
             }
         }
@@ -68,9 +77,9 @@ public class ManufacturerServiceImpl implements ManufacturerService {
 
     @Override
     public Manufacturer deleteManufacturer(Long id) {
-        if(id != null){
+        if (id != null) {
             Optional<Manufacturer> manufacturer = this.manufacturerRepository.findById(id);
-            if(manufacturer.isPresent()){
+            if (manufacturer.isPresent()) {
                 this.manufacturerRepository.deleteById(id);
                 return manufacturer.get();
             }

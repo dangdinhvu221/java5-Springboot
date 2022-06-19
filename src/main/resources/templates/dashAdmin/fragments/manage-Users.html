@@ -119,14 +119,13 @@
                         </li>
                         <li class="page-item active" th:unless="${currentPage != i}"><a class="page-link">[[${i}]]</a>
                         </li>
-                        <li><a href="" th:text="'/'+${page.getTotalPages()}"></a></li>
                     </ul>
                     <li class="page-item">
                         <a class="page-link"
                            th:if="${currentPage < page.getTotalPages()}"
                            th:href="@{ ${BASEURL + PAGE} + ${currentPage + 1}}"
                         >Next</a>
-<!--                        <span th:unless="${currentPage > page.getTotalPages()}" class="page-link">Next</span>-->
+                        <!--                        <span th:unless="${currentPage > page.getTotalPages()}" class="page-link">Next</span>-->
                     </li>
                 </ul>
             </nav>

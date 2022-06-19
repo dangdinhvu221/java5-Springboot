@@ -54,6 +54,12 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     }
 
     @Override
+    public List<OrderDetails> findByOrdersByOrdersId(Orders order) {
+
+        return this.detailRepository.findByOrdersByOrdersId(order);
+    }
+
+    @Override
     public OrderDetails getOrderDetails(Long id) {
         return this.detailRepository.findById(id).get();
     }
@@ -85,6 +91,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     public OrderDetails addOrderDetails(Long earPhoneId, Long orderId, BigDecimal price, Integer quantity) {
         OrderDetails orderDetails = new OrderDetails();
         EarPhone earPhone = this.earPhoneRepository.findById(earPhoneId).get();
+        earPhone.setQuantity(earPhone.getQuantity() - quantity);
         Orders orders = this.orderRepository.findById(orderId).get();
         orderDetails.setEarPhoneByEarPhoneId(earPhone);
         orderDetails.setOrdersByOrdersId(orders);

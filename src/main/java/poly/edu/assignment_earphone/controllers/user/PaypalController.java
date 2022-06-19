@@ -1,4 +1,4 @@
-package poly.edu.assignment_earphone.controllers;
+package poly.edu.assignment_earphone.controllers.user;
 
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;

@@ -1,35 +1,37 @@
-package poly.edu.assignment_earphone.controllers;
+package poly.edu.assignment_earphone.controllers.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import poly.edu.assignment_earphone.models.TypeGender;
-import poly.edu.assignment_earphone.models.TypeRole;
-import poly.edu.assignment_earphone.models.TypeStatus;
+import poly.edu.assignment_earphone.models.typeEnum.TypeGender;
+import poly.edu.assignment_earphone.models.typeEnum.TypeRole;
+import poly.edu.assignment_earphone.models.typeEnum.TypeStatus;
 import poly.edu.assignment_earphone.models.Users;
 import poly.edu.assignment_earphone.services.UserService;
 import java.util.Date;
 
 @Controller
-@RequestMapping("/earPhone/dashAdmin/user")
+@RequestMapping("/earPhone/dashAdmin")
+@PreAuthorize("isAuthenticated() and hasAuthority('ADMIN')")
 public class UsersController {
 
     @Autowired
-    private UserService userService;
+     UserService userService;
 
     @GetMapping("/manageUsers")
     private String manageUser(ModelMap model) {
-        model.addAttribute("listUsers", userService.getAllUsers());
+//        model.addAttribute("listUsers", userService.getAllUsers());
         return findPaginated(1, model);
     }
 
     @GetMapping("/formUser")
     private String showFormUser(ModelMap model) {
-        model.addAttribute("BASEURL", "/earPhone/dashAdmin/user");
+        model.addAttribute("BASEURL", "/earPhone/dashAdmin");
         model.addAttribute("CREATE", "/addUser");
         return "dashAdmin/fragments/form-CreatedUser";
     }
@@ -49,7 +51,7 @@ public class UsersController {
                               @RequestParam("phone") String phone
     ) {
         this.userService.addUsers(username, password, fullName, email, phone, image, new Date(), typeRole, gender, TypeStatus.ONLINE, address, birthDay);
-        return "redirect:/earPhone/dashAdmin/user/formUser";
+        return "redirect:/earPhone/dashAdmin/formUser";
     }
 
     @GetMapping("/editUser/{ids}")
@@ -59,7 +61,7 @@ public class UsersController {
         Users user = this.userService.getUser(ids);
         model.addAttribute("user", user);
         model.addAttribute("UPDATE", "/updateUser");
-        model.addAttribute("BASEURL", "/earPhone/dashAdmin/user");
+        model.addAttribute("BASEURL", "/earPhone/dashAdmin");
         return "dashAdmin/fragments/form-EditUser";
     }
 
@@ -80,8 +82,8 @@ public class UsersController {
         Users user = this.userService.getUser(id);
         this.userService.updateUsers(id, username, user.getPassword(), fullName, email, phone, image, user.getCreated(), typeRole, gender, TypeStatus.ONLINE, address, birthDay);
         model.addAttribute("UPDATE", "/updateUser");
-        model.addAttribute("BASEURL", "/earPhone/dashAdmin/user");
-        return "redirect:/earPhone/dashAdmin/user/manageUsers";
+        model.addAttribute("BASEURL", "/earPhone/dashAdmin");
+        return "redirect:/earPhone/dashAdmin/manageUsers";
     }
 
     @GetMapping("/blockUser/{id}")
@@ -89,13 +91,13 @@ public class UsersController {
     ) {
         Users user = this.userService.getUser(id);
         this.userService.update(user);
-        return "redirect:/earPhone/dashAdmin/user/manageUsers";
+        return "redirect:/earPhone/dashAdmin/manageUsers";
     }
 
     @GetMapping("/deleteUsers")
     public String deleteUser(@RequestParam("checkedID") Long[] ids) {
         this.userService.deleteAllUsers(ids);
-        return "redirect:/earPhone/dashAdmin/user/manageUsers";
+        return "redirect:/earPhone/dashAdmin/manageUsers";
     }
 
     @GetMapping("/searchUsers")
@@ -123,11 +125,11 @@ public class UsersController {
 
     public void actions(ModelMap model) {
         model.addAttribute("ADD", "/formUser");
-        model.addAttribute("BASEURL", "/earPhone/dashAdmin/user");
+        model.addAttribute("BASEURL", "/earPhone/dashAdmin");
         model.addAttribute("BLOCK", "/blockUser/");
         model.addAttribute("SEARCH", "/searchUsers");
         model.addAttribute("EDIT", "/editUser/");
-        model.addAttribute("DELETE_ALL", "/earPhone/dashAdmin/user/deleteUsers");
+        model.addAttribute("DELETE_ALL", "/earPhone/dashAdmin/deleteUsers");
         model.addAttribute("PAGE", "/pageUsers/");
     }
 }

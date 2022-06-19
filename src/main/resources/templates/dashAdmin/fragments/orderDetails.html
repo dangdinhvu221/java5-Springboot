@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashAdmin/layouts/indexAdmin}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="table-responsive">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Manage Users</h4>
+                    <a th:href="@{/earPhone/dashAdmin/manageOrders}" class="btn btn-sm btn-primary">Back
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <div class="container">
+                        <table class="table table-striped text-center">
+                            <thead>
+                            <tr>
+                                <th>EarPhone</th>
+                                <th>Name</th>
+                                <th>Color</th>
+                                <th>Frequency</th>
+                                <th>Impedance</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Type EarPhone</th>
+                                <th>Total</th>
+                                <th>Manufacturer</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="detail:${listOrderDetails}">
+                                <td>
+                                    <img th:src="*{'data:image/jpeg;base64,'+ detail.earPhoneByEarPhoneId.image}"
+                                         class="img-fluid avt">
+                                </td>
+                                <td th:text="${detail.earPhoneByEarPhoneId.name}"></td>
+                                <td th:text="${detail.earPhoneByEarPhoneId.color}"></td>
+                                <td th:text="${detail.earPhoneByEarPhoneId.frequency}"></td>
+                                <td th:text="${detail.earPhoneByEarPhoneId.impedance}"></td>
+                                <td th:text="${detail.earPhoneByEarPhoneId.price}"></td>
+                                <td th:text="${detail.quantity}"></td>
+                                <td th:text="${detail.earPhoneByEarPhoneId.typeEarPhone}"></td>
+                                <td th:text="${detail.quantity * detail.price}"></td>
+                                <td>
+                                    <img th:src="*{'data:image/jpeg;base64,'+ detail.earPhoneByEarPhoneId.manufacturerByManufacturerId.image}"
+                                         class="img-fluid">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

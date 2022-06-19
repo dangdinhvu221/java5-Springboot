@@ -2,9 +2,9 @@ package poly.edu.assignment_earphone.services;
 
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
-import poly.edu.assignment_earphone.models.TypeGender;
-import poly.edu.assignment_earphone.models.TypeRole;
-import poly.edu.assignment_earphone.models.TypeStatus;
+import poly.edu.assignment_earphone.models.typeEnum.TypeGender;
+import poly.edu.assignment_earphone.models.typeEnum.TypeRole;
+import poly.edu.assignment_earphone.models.typeEnum.TypeStatus;
 import poly.edu.assignment_earphone.models.Users;
 
 import java.util.Date;
