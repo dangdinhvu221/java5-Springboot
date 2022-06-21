@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import poly.edu.assignment_earphone.models.Orders;
 import poly.edu.assignment_earphone.services.OrderService;
 
 @Controller
@@ -17,7 +18,10 @@ public class SuccessOrderController {
 
     @GetMapping("/received/{id}")
     public String successOrder(@PathVariable Long id, ModelMap model){
-        this.orderService.updateOrders(id, 3L);
+        Orders orders = this.orderService.getOrders(id);
+        if(orders.getOderStatesByOderStatesId().getId() == 4){
+            this.orderService.updateOrders(id, 3L);
+        }
         return "redirect:/earPhone/history";
     }
 }

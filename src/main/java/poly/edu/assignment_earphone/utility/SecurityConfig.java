@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/earPhone/homePage", "/LogIn/**", "/dashboard/**", "/homePage/**")
+                .antMatchers("/", "/earPhone/homePage", "/LogIn/**", "/dashboard/**", "/homePage/**")
                 .permitAll().anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
                 .and()
                 .formLogin() // Cho phép người dùng xác thực bằng form login
@@ -64,10 +64,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll() // Tất cả đều được truy cập vào địa chỉ này
                 .and()
                 .logout() // Cho phép logout
-                .logoutUrl("/j_spring_security_logout")
+                .logoutUrl("/earPhone/logout")
                 .logoutSuccessUrl("/earPhone/homePage")
-                .permitAll();
-//
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
+//                .permitAll();
 //                .and()
 //                .rememberMe()
 //                .tokenValiditySeconds(86400);

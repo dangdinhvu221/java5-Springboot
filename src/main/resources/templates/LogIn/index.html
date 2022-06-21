@@ -16,19 +16,23 @@
 
 </head>
 <body>
-<div th:if="${user != null}">
-    <script>
-        Swal.fire({
-            icon: "success",
-            title: "SuccessFully!",
-            text: "Login success",
-            showConfirmButton: false,
-            closeOnClickOutside: false,
-            allowOutsideClick: false,
-            timer: 1600,
-        });
-    </script>
-</div>
+<script th:if="${login} == false">
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+    Toast.fire({
+        icon: 'error',
+        title: 'Đăng nhập thất bại'
+    })
+</script>
 <section class="ftco-section">
     <div class="container">
 

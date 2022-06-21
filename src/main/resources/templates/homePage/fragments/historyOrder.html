@@ -145,16 +145,14 @@
                                 </div>
                                 <div class="one-eight text-center">
                                     <div class="display-tc">
-                                        <div class="display-tc">
-                                            <a th:href="@{'/earPhone/received/' + ${item.id}}"
-                                               class=" btn btn-outline-warning">received
-                                            </a>
-                                            <a href="#" type="button" class="btn btn-outline-primary"
-                                               data-toggle="modal"
-                                               th:attr="data-target='#exampleModal'+${item.id}">show
-                                            </a>
-                                        </div>
-
+                                        <a th:if="${item.oderStatesByOderStatesId.id == 4}"
+                                           th:href="@{'/earPhone/received/' + ${item.id}}"
+                                           class=" btn btn-outline-warning">received
+                                        </a>
+                                        <a href="#" type="button" class="btn btn-outline-primary"
+                                           data-toggle="modal"
+                                           th:attr="data-target='#exampleModal'+${item.id}">show
+                                        </a>
                                     </div>
                                 </div>
                             </div>

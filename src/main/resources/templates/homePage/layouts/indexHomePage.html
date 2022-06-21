@@ -41,7 +41,23 @@
 <body>
 
 <div class="colorlib-loader"></div>
-
+<script th:if="${login} == true">
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+    Toast.fire({
+        icon: 'error',
+        title: 'Đăng nhập thất bại'
+    })
+</script>
 <div id="page">
     <!--    navigation start-->
     <div th:replace="homePage/fragments/navigation :: navigation"></div>

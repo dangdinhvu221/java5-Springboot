@@ -62,19 +62,15 @@ public class CheckoutController {
     public String buyEarPhone(Model model, Principal principal) {
         int total = 0;
         Users user = this.userService.getUsersByUsername(principal.getName());
-//        if (user != null) {
         for (CartDetails c : cartService.getCart().getCartDetails()) {
             total += c.getQuantity() * Integer.parseInt(String.valueOf(c.getPrice()));
         }
-
         this.orderService.addOrder(user, new Date(), BigDecimal.valueOf(total * 1.1), 1L);
         for (CartDetails c : this.cartService.getCart().getCartDetails()) {
             this.detailsService.addOrderDetails(c.getEarPhoneId(), orderService.getOrderDesc().getId(), c.getPrice(), c.getQuantity());
         }
         cartService.removeEarPhones();
         return "redirect:/earPhone/orderComplete";
-//        } else {
-//            return "redirect:/earPhone/logInForm";
-//        }
+
     }
 }
