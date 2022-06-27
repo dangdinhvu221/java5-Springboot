@@ -51,26 +51,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/", "/earPhone/homePage", "/LogIn/**", "/dashboard/**", "/homePage/**")
-                .permitAll().anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
-                .and()
-                .formLogin() // Cho phép người dùng xác thực bằng form login
+                .antMatchers("/homePage/**", "/earPhone/homePage", "/earPhone/SignUp", "/LogIn/**", "/dashboard/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
+
+        http.formLogin() // Cho phép người dùng xác thực bằng form login
                 .loginPage("/earPhone/logInForm")
-                .defaultSuccessUrl("/earPhone/homePage?login=true")// login thành công thì vào request này
+                .defaultSuccessUrl("/earPhone/homePage?login=true", true)// login thành công thì vào request này
                 .failureUrl("/earPhone/logInForm?login=fail")
                 .usernameParameter("username")//
                 .passwordParameter("password")
                 .loginProcessingUrl("/j_spring-security_check")
-                .permitAll() // Tất cả đều được truy cập vào địa chỉ này
-                .and()
-                .logout() // Cho phép logout
-                .logoutUrl("/earPhone/logout")
-                .logoutSuccessUrl("/earPhone/homePage")
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID");
-//                .permitAll();
-//                .and()
-//                .rememberMe()
-//                .tokenValiditySeconds(86400);
+                .permitAll(); // Tất cả đều được truy cập vào địa chỉ này
+
+        http.logout() // Cho phép logout
+                .logoutUrl("/j_spring_security_logout")
+                .logoutSuccessUrl("/earPhone/homePage");
+
+        http.rememberMe()
+                .tokenValiditySeconds(86400);
     }
 }

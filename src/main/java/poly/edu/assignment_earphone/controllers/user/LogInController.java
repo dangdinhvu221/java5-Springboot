@@ -23,7 +23,7 @@ public class LogInController {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        return "redirect:/earPhone/homePage";
+        return "redirect:/earPhone/LogInForm";
     }
 
     @PostMapping("/logIn")
